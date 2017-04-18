@@ -14,11 +14,11 @@ public class Message {
     private byte[] body;
 
     public void pack() throws Exception {
-        throw new Exception("Not Implemented");
+        //throw new Exception("Not Implemented");
     }
 
     public void unpack() throws Exception {
-        throw new Exception("Not Implemented");
+        //throw new Exception("Not Implemented");
     }
 
     public Message() { }

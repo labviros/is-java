@@ -2,6 +2,7 @@ package com.labviros.is;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.BuiltinExchangeType;
+import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConnectionFactory;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -35,6 +36,7 @@ public class Connection {
 
     public Connection(String uri) throws URISyntaxException, NoSuchAlgorithmException, KeyManagementException, TimeoutException, IOException {
         factory = new ConnectionFactory();
+        factory.setConnectionTimeout(5000);
         factory.setUri(uri);
         connection = factory.newConnection();
         channel = connection.createChannel();
@@ -58,6 +60,11 @@ public class Connection {
     public final ArrayBlockingQueue<Message> subscribe(String exchange, String topic) throws IOException {
         channel.queueBind(router.getQueue(), exchange, topic);
         return router.addRoute(exchange, topic);
+    }
+
+    public final void unsubscribe(String exchange, String topic) throws IOException {
+        channel.queueUnbind(router.getQueue(), exchange, topic);
+        router.removeRoute(exchange, topic);
     }
 
     public final void publish(String exchange, String topic, Message message) throws Exception {

@@ -47,6 +47,11 @@ public class Router extends DefaultConsumer {
         return blockingQueue;
     }
 
+    void removeRoute(String exchange, String topic) throws IOException {
+        String key = exchange + "/" + topic;
+        routes.remove(key);
+    }
+
     @Override
     public void handleDelivery(String consumerTag, Envelope envelope,
                                AMQP.BasicProperties properties, byte[] body)
