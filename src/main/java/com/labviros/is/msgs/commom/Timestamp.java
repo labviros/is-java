@@ -14,16 +14,23 @@ import org.msgpack.core.MessageUnpacker;
  *
  * @author clebeson
  */
-public class Timestamp extends Message{
-    private long nanoseconds=System.nanoTime();
+public class Timestamp extends Message {
 
+    private long nanoseconds = System.nanoTime();
+
+    public Timestamp() {
+    }
+    
     public Timestamp(Message copy) throws Exception {
         super(copy);
         this.unpack();
     }
 
-    
-    
+   
+    public Timestamp(long nanoseconds) {
+        this.nanoseconds = nanoseconds;
+    }
+
     @Override
     public void pack() throws Exception {
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
@@ -41,10 +48,13 @@ public class Timestamp extends Message{
         }
         nanoseconds = unpacker.unpackLong();
     }
-     
+
     public long getNanoseconds() {
         return nanoseconds;
     }
-    
-    
+
+    public void setNanoseconds(long nanoseconds) {
+        this.nanoseconds = nanoseconds;
+    }
+
 }

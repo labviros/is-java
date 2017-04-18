@@ -17,22 +17,24 @@ import org.msgpack.value.Value;
  *
  * @author clebeson
  */
-public class Pose extends Message{
+public class Pose extends Message {
+
     private Point position;  // [mm]
-    private double heading; 
+    private double heading;
+
+    public Pose() {
+    }
 
     public Pose(Message copy) throws Exception {
         super(copy);
         this.unpack();
     }
 
-    
-    
     public Pose(Point position, double heading) {
         this.position = position;
         this.heading = heading;
     }
-    
+
     @Override
     public void pack() throws Exception {
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
@@ -60,21 +62,18 @@ public class Pose extends Message{
         if (length != 2) {
             throw new RuntimeException("Bad Length");
         }
-       
-        
 
         Value value = unpacker.unpackValue().asArrayValue();
-        
-            ArrayValue arrayValue = value.asArrayValue();
-            position = new Point(arrayValue.get(0).isNilValue() ? 0
-                    : (arrayValue.get(0).asNumberValue().isFloatValue() ? arrayValue.get(0).asNumberValue().toFloat() : arrayValue.get(0).asNumberValue().toDouble()),
-                    arrayValue.get(1).isNilValue() ? 0
-                    : (arrayValue.get(1).asNumberValue().isFloatValue() ? arrayValue.get(1).asNumberValue().toFloat() : arrayValue.get(1).asNumberValue().toDouble()),
-                    arrayValue.get(2).isNilValue() ? 0
-                    : (arrayValue.get(2).asNumberValue().isFloatValue() ? arrayValue.get(2).asNumberValue().toFloat() : arrayValue.get(2).asNumberValue().toDouble()));
 
-            
-        heading=unpacker.unpackDouble();
+        ArrayValue arrayValue = value.asArrayValue();
+        position = new Point(arrayValue.get(0).isNilValue() ? 0
+                : (arrayValue.get(0).asNumberValue().isFloatValue() ? arrayValue.get(0).asNumberValue().toFloat() : arrayValue.get(0).asNumberValue().toDouble()),
+                arrayValue.get(1).isNilValue() ? 0
+                        : (arrayValue.get(1).asNumberValue().isFloatValue() ? arrayValue.get(1).asNumberValue().toFloat() : arrayValue.get(1).asNumberValue().toDouble()),
+                arrayValue.get(2).isNilValue() ? 0
+                        : (arrayValue.get(2).asNumberValue().isFloatValue() ? arrayValue.get(2).asNumberValue().toFloat() : arrayValue.get(2).asNumberValue().toDouble()));
+
+        heading = unpacker.unpackDouble();
 
     }
 
@@ -85,7 +84,13 @@ public class Pose extends Message{
     public double getHeading() {
         return heading;
     }
-    
-    
-    
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    public void setHeading(double heading) {
+        this.heading = heading;
+    }
+
 }

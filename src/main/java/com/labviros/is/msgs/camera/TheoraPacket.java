@@ -25,6 +25,18 @@ public class TheoraPacket extends Message {
         this.unpack();
     }
 
+    public TheoraPacket() {
+    }
+
+    public TheoraPacket(byte[] data) {
+        this.data = data;
+    }
+
+    public TheoraPacket(byte[] data, boolean newHeader) {
+        this.newHeader = newHeader;
+        this.data = data;
+    }
+
     public boolean isNewHeader() {
         return newHeader;
     }
@@ -48,7 +60,7 @@ public class TheoraPacket extends Message {
 
         packer.packArrayHeader(2);
         packer.packBoolean(newHeader);
-        
+
         packer.packBinaryHeader(data.length);
         for (int i = 0; i < data.length; i++) {
             packer.packByte(data[i]);
@@ -58,10 +70,9 @@ public class TheoraPacket extends Message {
         setBody(packer.toByteArray());
     }
 
+    @Override
+    public void unpack() throws Exception {
 
-@Override
-        public void unpack() throws Exception {
-      
         MessageUnpacker unpacker = MessagePack.newDefaultUnpacker(getBody());
         if (unpacker.unpackArrayHeader() != 2) {
             throw new RuntimeException("Bad Length");
@@ -75,8 +86,12 @@ public class TheoraPacket extends Message {
         }
     }
 
-   
-    
- 
-    
+    public void setNewHeader(boolean newHeader) {
+        this.newHeader = newHeader;
+    }
+
+    public void setData(byte[] data) {
+        this.data = data;
+    }
+
 }

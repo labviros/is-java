@@ -26,8 +26,17 @@ public class RegionOfInterest extends Message {
         this.unpack();
     }
 
+    public RegionOfInterest() {
+    }
+
     
-    
+    public RegionOfInterest(int offsetX, int offsetY, int height, int width) {
+        this.offsetX = offsetX;
+        this.offsetY = offsetY;
+        this.height = height;
+        this.width = width;
+    }
+
     @Override
     public void pack() throws Exception {
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
@@ -46,17 +55,10 @@ public class RegionOfInterest extends Message {
         if (unpacker.unpackArrayHeader() != 4) {
             throw new RuntimeException("Bad Length");
         }
-        offsetX=unpacker.unpackInt();
-        offsetY=unpacker.unpackInt();
-        height=unpacker.unpackInt();
-        width=unpacker.unpackInt();
-    }
-
-    public RegionOfInterest(int offsetX, int offsetY, int height, int width) {
-        this.offsetX = offsetX;
-        this.offsetY = offsetY;
-        this.height = height;
-        this.width = width;
+        offsetX = unpacker.unpackInt();
+        offsetY = unpacker.unpackInt();
+        height = unpacker.unpackInt();
+        width = unpacker.unpackInt();
     }
 
     public int getOffsetX() {
@@ -74,7 +76,21 @@ public class RegionOfInterest extends Message {
     public int getWidth() {
         return width;
     }
-    
-    
+
+    public void setOffsetX(int offsetX) {
+        this.offsetX = offsetX;
+    }
+
+    public void setOffsetY(int offsetY) {
+        this.offsetY = offsetY;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
 }

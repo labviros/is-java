@@ -18,9 +18,18 @@ public class Delay extends Message {
 
     private int milliseconds;
 
+    public Delay() {
+    }
+
+    
+    
     public Delay(Message copy) throws Exception {
         super(copy);
         this.unpack();
+    }
+
+    public Delay(int milliseconds) {
+        this.milliseconds = milliseconds;
     }
 
     @Override
@@ -45,9 +54,9 @@ public class Delay extends Message {
     public int getMilliseconds() {
         return milliseconds;
     }
-    
-    
+
+    public void setMilliseconds(int milliseconds) {
+        this.milliseconds = milliseconds;
+    }
 
 }
-
-

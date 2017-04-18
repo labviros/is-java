@@ -14,14 +14,19 @@ import org.msgpack.core.MessageUnpacker;
  *
  * @author clebeson
  */
-public class Resolution extends Message{
-  
-  private int height;
-  private int width;
+public class Resolution extends Message {
+
+    private int height;
+    private int width;
 
     public Resolution(Message copy) throws Exception {
         super(copy);
         this.unpack();
+    }
+
+    public Resolution(int height, int width) {
+        this.height = height;
+        this.width = width;
     }
 
     @Override
@@ -40,14 +45,9 @@ public class Resolution extends Message{
         if (unpacker.unpackArrayHeader() != 2) {
             throw new RuntimeException("Bad Length");
         }
-        height=unpacker.unpackInt();
-        width=unpacker.unpackInt();
-        
-    }
+        height = unpacker.unpackInt();
+        width = unpacker.unpackInt();
 
-    public Resolution(int height, int width) {
-        this.height = height;
-        this.width = width;
     }
 
     public int getHeight() {
@@ -57,6 +57,13 @@ public class Resolution extends Message{
     public int getWidth() {
         return width;
     }
-    
-    
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
 }

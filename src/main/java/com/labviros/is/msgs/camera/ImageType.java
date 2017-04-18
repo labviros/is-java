@@ -14,16 +14,20 @@ import org.msgpack.core.MessageUnpacker;
  *
  * @author clebeson
  */
-public class ImageType extends Message{
-    private String rgb="rgb";
-    private String gray="gray";
+public class ImageType extends Message {
+
+    private String rgb = "rgb";
+    private String gray = "gray";
 
     public ImageType(Message copy) throws Exception {
         super(copy);
         this.unpack();
     }
-     
-     @Override
+
+    public ImageType() {
+    }
+
+    @Override
     public void pack() throws Exception {
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
         packer.packArrayHeader(2);
@@ -34,13 +38,13 @@ public class ImageType extends Message{
     }
 
     @Override
-    public void unpack() throws Exception{
+    public void unpack() throws Exception {
         MessageUnpacker unpacker = MessagePack.newDefaultUnpacker(getBody());
         if (unpacker.unpackArrayHeader() != 2) {
             throw new RuntimeException("Bad Length");
         }
-        rgb=unpacker.unpackString();
-        gray=unpacker.unpackString();
+        rgb = unpacker.unpackString();
+        gray = unpacker.unpackString();
     }
 
     public String getRgb() {
@@ -50,6 +54,13 @@ public class ImageType extends Message{
     public String getGray() {
         return gray;
     }
-    
-    
+
+    public void setRgb(String rgb) {
+        this.rgb = rgb;
+    }
+
+    public void setGray(String gray) {
+        this.gray = gray;
+    }
+
 }

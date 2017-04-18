@@ -25,9 +25,18 @@ public class PointsWithReference extends Message {
     private String reference = "";
     private List<Point> points;
 
+    public PointsWithReference() {
+    }
+
+    
     public PointsWithReference(Message copy) throws Exception {
         super(copy);
         this.unpack();
+    }
+
+    public PointsWithReference(String reference, List<Point> points) {
+        this.reference = reference;
+        this.points = points;
     }
 
     @Override
@@ -41,9 +50,9 @@ public class PointsWithReference extends Message {
             return;
         }
 
-         packer.packArrayHeader(2);
+        packer.packArrayHeader(2);
         packer.packString(reference);
-        
+
         packer.packArrayHeader(points.size());
         for (Point point : points) {
             point.pack();
@@ -69,14 +78,14 @@ public class PointsWithReference extends Message {
         List<Value> values = value.asArrayValue().list();
 
         for (Value v : values) {
-            
+
             ArrayValue arrayValue = v.asArrayValue();
             Point p = new Point(arrayValue.get(0).isNilValue() ? 0
                     : (arrayValue.get(0).asNumberValue().isFloatValue() ? arrayValue.get(0).asNumberValue().toFloat() : arrayValue.get(0).asNumberValue().toDouble()),
                     arrayValue.get(1).isNilValue() ? 0
-                    : (arrayValue.get(1).asNumberValue().isFloatValue() ? arrayValue.get(1).asNumberValue().toFloat() : arrayValue.get(1).asNumberValue().toDouble()),
+                            : (arrayValue.get(1).asNumberValue().isFloatValue() ? arrayValue.get(1).asNumberValue().toFloat() : arrayValue.get(1).asNumberValue().toDouble()),
                     arrayValue.get(2).isNilValue() ? 0
-                    : (arrayValue.get(2).asNumberValue().isFloatValue() ? arrayValue.get(2).asNumberValue().toFloat() : arrayValue.get(2).asNumberValue().toDouble()));
+                            : (arrayValue.get(2).asNumberValue().isFloatValue() ? arrayValue.get(2).asNumberValue().toFloat() : arrayValue.get(2).asNumberValue().toDouble()));
 
             points.add(p);
         }
@@ -90,7 +99,13 @@ public class PointsWithReference extends Message {
     public String getReference() {
         return reference;
     }
-    
-    
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public void setPoints(List<Point> points) {
+        this.points = points;
+    }
 
 }

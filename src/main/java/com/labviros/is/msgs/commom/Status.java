@@ -52,4 +52,12 @@ public class Status extends Message {
         return why;
     }
 
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setWhy(String why) {
+        this.why = why;
+    }
+
 }

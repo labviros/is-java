@@ -20,6 +20,10 @@ public class Point extends Message {
     private double y;
     private double z=0 ;
 
+    public Point() {
+    }
+
+    
 
     public Point(double x, double y, double z) {
         this.x = x;
@@ -73,6 +77,19 @@ public Point(Message msg) throws Exception {
     public double getZ() {
         return z;
     }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
+    }
+    
     
 
 }

@@ -22,6 +22,15 @@ public class Speed extends Message{
         super(copy);
         this.unpack();
     }
+
+    public Speed() {
+    }
+
+    public Speed(double linear, double angular) {
+        this.linear = linear;
+        this.angular = angular;
+    }
+    
     
     
     
@@ -45,6 +54,8 @@ public class Speed extends Message{
         angular=unpacker.unpackDouble();
         
     }
+    
+    
 
     public double getLinear() {
         return linear;
@@ -52,6 +63,14 @@ public class Speed extends Message{
 
     public double getAngular() {
         return angular;
+    }
+
+    public void setLinear(double linear) {
+        this.linear = linear;
+    }
+
+    public void setAngular(double angular) {
+        this.angular = angular;
     }
     
     
