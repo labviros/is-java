@@ -21,15 +21,14 @@ public class RegionOfInterest extends Message {
     private int height;    // Height of ROI
     private int width; // Width of ROI
 
+    public RegionOfInterest() {
+    }
+
     public RegionOfInterest(Message copy) throws Exception {
         super(copy);
         this.unpack();
     }
 
-    public RegionOfInterest() {
-    }
-
-    
     public RegionOfInterest(int offsetX, int offsetY, int height, int width) {
         this.offsetX = offsetX;
         this.offsetY = offsetY;

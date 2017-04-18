@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.labviros.is.msgs.robot;
+package com.labviros.is.msgs.common;
 
 import com.labviros.is.Message;
 import org.msgpack.core.MessageBufferPacker;
@@ -14,30 +14,30 @@ import org.msgpack.core.MessageUnpacker;
  *
  * @author clebeson
  */
-public class Speed extends Message {
+public class SamplingRate extends Message {
 
-    private double linear;
-    private double angular;
+    private double rate; // [Hz]
+    private int period; // [ms]
 
-    public Speed(Message copy) throws Exception {
+    public SamplingRate() {
+    }
+
+    public SamplingRate(Message copy) throws Exception {
         super(copy);
         this.unpack();
     }
 
-    public Speed() {
-    }
-
-    public Speed(double linear, double angular) {
-        this.linear = linear;
-        this.angular = angular;
+    public SamplingRate(double rate, int period) {
+        this.rate = rate;
+        this.period = period;
     }
 
     @Override
     public void pack() throws Exception {
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
         packer.packArrayHeader(2);
-        packer.packDouble(linear);
-        packer.packDouble(angular);
+        packer.packDouble(rate);
+        packer.packInt(period);
         packer.close();
         setBody(packer.toByteArray());
     }
@@ -48,25 +48,24 @@ public class Speed extends Message {
         if (unpacker.unpackArrayHeader() != 2) {
             throw new RuntimeException("Bad Length");
         }
-        linear = unpacker.unpackDouble();
-        angular = unpacker.unpackDouble();
-
+        rate = unpacker.unpackDouble();
+        period = unpacker.unpackInt();
     }
 
-    public double getLinear() {
-        return linear;
+    public int getPeriod() {
+        return period;
     }
 
-    public double getAngular() {
-        return angular;
+    public double getRate() {
+        return rate;
     }
 
-    public void setLinear(double linear) {
-        this.linear = linear;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
-    public void setAngular(double angular) {
-        this.angular = angular;
+    public void setPeriod(int period) {
+        this.period = period;
     }
 
 }

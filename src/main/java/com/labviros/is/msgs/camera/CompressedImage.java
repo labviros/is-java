@@ -10,12 +10,13 @@ import java.io.IOException;
 /**
  * Created by picoreti on 08/04/17.
  */
-
 public class CompressedImage extends Message {
+
     String format = "";
     byte[] data;
 
-    public CompressedImage() { }
+    public CompressedImage() {
+    }
 
     public CompressedImage(Message message) throws IOException {
         super(message);
@@ -69,7 +70,7 @@ public class CompressedImage extends Message {
         }
 
         this.format = unpacker.unpackString();
-       
+
         try {
             data = unpacker.unpackValue().asBinaryValue().asByteArray();
         } catch (IOException e) {

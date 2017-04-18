@@ -18,23 +18,22 @@ public class Point extends Message {
 
     private double x;
     private double y;
-    private double z=0 ;
+    private double z = 0;
 
     public Point() {
     }
-
-    
 
     public Point(double x, double y, double z) {
         this.x = x;
         this.y = y;
         this.z = z;
     }
-    
-public Point(Message msg) throws Exception {
-    super(msg);
-    this.unpack();
+
+    public Point(Message msg) throws Exception {
+        super(msg);
+        this.unpack();
     }
+
     @Override
     public void pack() throws Exception {
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
@@ -89,7 +88,5 @@ public Point(Message msg) throws Exception {
     public void setZ(double z) {
         this.z = z;
     }
-    
-    
 
 }

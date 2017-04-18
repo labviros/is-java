@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.labviros.is.msgs.robot;
+package com.labviros.is.msgs.common;
 
 import com.labviros.is.Message;
 import org.msgpack.core.MessageBufferPacker;
@@ -14,30 +14,25 @@ import org.msgpack.core.MessageUnpacker;
  *
  * @author clebeson
  */
-public class Speed extends Message {
+public class Status extends Message {
 
-    private double linear;
-    private double angular;
+    private String value;
+    private String why;
 
-    public Speed(Message copy) throws Exception {
+    public Status() {
+    }
+
+    public Status(Message copy) throws Exception {
         super(copy);
         this.unpack();
-    }
-
-    public Speed() {
-    }
-
-    public Speed(double linear, double angular) {
-        this.linear = linear;
-        this.angular = angular;
     }
 
     @Override
     public void pack() throws Exception {
         MessageBufferPacker packer = MessagePack.newDefaultBufferPacker();
         packer.packArrayHeader(2);
-        packer.packDouble(linear);
-        packer.packDouble(angular);
+        packer.packString(value);
+        packer.packString(why);
         packer.close();
         setBody(packer.toByteArray());
     }
@@ -48,25 +43,24 @@ public class Speed extends Message {
         if (unpacker.unpackArrayHeader() != 2) {
             throw new RuntimeException("Bad Length");
         }
-        linear = unpacker.unpackDouble();
-        angular = unpacker.unpackDouble();
-
+        value = unpacker.unpackString();
+        why = unpacker.unpackString();
     }
 
-    public double getLinear() {
-        return linear;
+    public String getValue() {
+        return value;
     }
 
-    public double getAngular() {
-        return angular;
+    public String getWhy() {
+        return why;
     }
 
-    public void setLinear(double linear) {
-        this.linear = linear;
+    public void setValue(String value) {
+        this.value = value;
     }
 
-    public void setAngular(double angular) {
-        this.angular = angular;
+    public void setWhy(String why) {
+        this.why = why;
     }
 
 }
