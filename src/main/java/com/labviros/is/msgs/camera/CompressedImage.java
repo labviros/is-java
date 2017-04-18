@@ -69,16 +69,12 @@ public class CompressedImage extends Message {
         }
 
         this.format = unpacker.unpackString();
-        int size = unpacker.unpackBinaryHeader();
-        if (size > 0) {
-            byte[] data = new byte[size];
-            for (int i = 0; i < size; i++) {
-                data[i] = unpacker.unpackByte();
-            }
-            this.data = data;
+       
+        try {
+            data = unpacker.unpackValue().asBinaryValue().asByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-        unpacker.close();
     }
 
 }
